@@ -7,7 +7,8 @@ const { Pool } = pg;
 
 const db = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: true
 });
+
+if (process.env.MODE === "prod") db.ssl = true;
 
 export default db
