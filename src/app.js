@@ -2,14 +2,18 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
+import customersRouter from './routers/CustomersRouter.js'
+import gamesRouter from './routers/GamesRouter.js'
+import rentalsRouter from './routers/RentalsRouter.js'
+
 dotenv.config()
 
-const server = express()
-server.use(cors())
-server.use(express.json())
+const app = express()
+app.use(cors())
+app.use(express.json())
 
-// server.use()
+app.use([customersRouter,gamesRouter,rentalsRouter])
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 5000
 
-server.listen(PORT,()=>console.log(`Server on port ${PORT}`))
+app.listen(PORT,()=>console.log(`Server on port ${PORT}`))
