@@ -18,7 +18,7 @@ export async function getCustomerById(req, res) {
     try {
         const customer = await db.query("SELECT * FROM customers WHERE id = $1;", [id]);
         if (!customer.rows[0]) return res.sendStatus(404);
-        customer.rows = customers.rows.map((customer) => ({
+        customer.rows = customer.rows.map((customer) => ({
             ...customer,
             birthday: new Date(customer.birthday).toISOString().split("T")[0],
         }));
