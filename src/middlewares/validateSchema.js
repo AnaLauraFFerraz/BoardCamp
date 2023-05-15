@@ -5,7 +5,7 @@ export default function validateSchema(schema) {
         )
         if (error) {
             const errorMessages = error.details.map(err => err.message);
-            return res.status(422).json({ errors: errorMessages });
+            return res.status(400).json({ errors: errorMessages });
         }
         next()
     }
