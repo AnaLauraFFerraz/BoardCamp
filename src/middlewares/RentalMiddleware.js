@@ -20,3 +20,19 @@ export async function rentalValidation(req, res, next) {
 
     next();
 }
+
+export async function returnRentalValidation(req, res, next) {
+    const {id} = req.params;
+
+    try {
+        const checkRental = await db.query("SELECT * FROM rentals WHERE id = $1", [id]);
+
+        if (!checkRental.rows[0]) return res.sendStatus(404);
+        if (checkRental.rows[0].returnDate) return res.sendStatus(400);
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+
+    next();
+}
+
